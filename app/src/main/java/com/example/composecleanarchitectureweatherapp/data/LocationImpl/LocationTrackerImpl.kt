@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import com.example.composecleanarchitectureweatherapp.domain.location.LocationTracker
 import android.content.Context
 import android.location.LocationManager
+import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -34,6 +35,7 @@ class LocationTrackerImpl @Inject constructor(
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         if(!hasAccessCoarseLocationPermission || !hasAccessFineLocationPermission || !isGpsEnabled) {
+            Log.e("LocationTracker","Error: Permission Error:hasAccessCoarseLocationPermission:$hasAccessCoarseLocationPermission,hasAccessFineLocationPermission:$hasAccessFineLocationPermission,isGpsEnabled:$isGpsEnabled")
             return null
         }
 
@@ -51,6 +53,7 @@ class LocationTrackerImpl @Inject constructor(
                     cont.resume(it)
                 }
                 addOnFailureListener {
+                    Log.e("LocationTracker","Location Request Error")
                     cont.resume(null)
                 }
                 addOnCanceledListener {

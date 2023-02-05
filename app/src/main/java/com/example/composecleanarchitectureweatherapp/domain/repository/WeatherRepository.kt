@@ -5,5 +5,5 @@ import com.example.composecleanarchitectureweatherapp.domain.model.WeatherApiRes
 import retrofit2.Response
 
 interface WeatherRepository {
-    suspend fun getWeatherData(city:String): BaseResponse<WeatherApiResponse>
+    suspend fun getWeatherData(lat: String,lng:String): BaseResponse<WeatherApiResponse>
 }

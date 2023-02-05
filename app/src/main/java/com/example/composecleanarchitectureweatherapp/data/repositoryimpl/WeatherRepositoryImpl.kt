@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(private val weatherApi: WeatherApi) :
     WeatherRepository {
-    override suspend fun getWeatherData(city: String): BaseResponse<WeatherApiResponse> {
+    override suspend fun getWeatherData(lat: String,lng:String): BaseResponse<WeatherApiResponse> {
         return try {
-            NetworkUtils.getFormatedResponse<WeatherApiResponse>(weatherApi.getWeatherData(city))
+            NetworkUtils.getFormatedResponse<WeatherApiResponse>(weatherApi.getWeatherData(lat,lng))
         } catch (ex: Exception) {
             ex.printStackTrace()
             BaseResponse.Error(ex.message.toString())
